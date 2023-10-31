@@ -1,86 +1,73 @@
+<!DOCTYPE html>
 <html>
+
 <head>
-<script src="https://code.jquery.com/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="raphael-2.1.4.min.js"></script>
-<script src="justgage.js"></script>
-
-<script>
-var accessToken = "002b8323b4c0f8bc74cb673c580d60e91bcde675";
-var deviceID = "3b001b001547313036303933"
-var url = "https://api.particle.io/v1/devices/" + deviceID + "/gradosC";
-var url1 = "https://api.particle.io/v1/devices/" + deviceID + "/humedad";
-var url2 = "https://api.particle.io/v1/devices/" + deviceID + "/gradosF";
-
-function callback(data, status){
-	if (status == "success") {
-		temp = parseFloat(data.result);
-		temp = temp.toFixed(2);
-		g.refresh(temp);
-		setTimeout(getReading, 1000);
-	}
-	else {
-		alert("There was a problem");
-	}
-}
-
-function callback1(data, status){
-	if (status == "success") {
-		temp = parseFloat(data.result);
-		temp = temp.toFixed(2);
-		h.refresh(temp);
-		setTimeout(getReading, 1000);
-	}
-	else {
-		alert("There was a problem");
-	}
-}
-
-function callback3(data, status){
-	if (status == "success") {
-		temp = parseFloat(data.result);
-		temp = temp.toFixed(2);
-		i.refresh(temp);
-		setTimeout(getReading, 1000);
-	}
-	else {
-		alert("There was a problem");
-	}
-}
-function getReading(){
-   	$.get(url, {access_token: accessToken}, callback);
-	$.get(url1, {access_token: accessToken}, callback1);
-	$.get(url2, {access_token: accessToken}, callback3);
-}
-</script>
-</head>	
+    <script src="https://code.jquery.com/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="raphael-2.1.4.min.js"></script>
+    <script src="justgage.js"></script>
+</head>
 
 <body>
-<div id="gauge" class="200x160px"></div>
+    <div id="temperature-gauge" class="200x160px"></div>
+    <div id="humidity-gauge" class="200x160px"></div>
+    <div id="fahrenheit-gauge" class="200x160px"></div>
 
-<script>
-var g = new JustGage({
-    id: "gauge",
-    value: 0,
-    min: 0,
-    max: 400,
-    title: "Temperatura (C)"});
+    <script>
+        var accessToken = "tu_access_token";
+        var deviceID = "tu_device_id";
+        var url = "https://api.particle.io/v1/devices/" + deviceID + "/gradosC";
+        var url1 = "https://api.particle.io/v1/devices/" + deviceID + "/humedad";
+        var url2 = "https://api.particle.io/v1/devices/" + deviceID + "/gradosF";
 
-var h = new JustGage({
-    id: "gauge",
-    value: 0,
-    min: 0,
-    max: 400,
-    title: "Humedad (%)"});
+        function callback(data, status, gauge) {
+            if (status == "success") {
+                var temp = parseFloat(data.result);
+                temp = temp.toFixed(2);
+                gauge.refresh(temp);
+            } else {
+                alert("Hubo un problema");
+            }
+        }
 
-var i= new JustGage({
-    id: "gauge",
-    value: 0,
-    min: 0,
-    max: 400,
-    title: "Grados (F)"});
+        function getReading() {
+            $.get(url, { access_token: accessToken }, function (data, status) {
+                callback(data, status, temperatureGauge);
+            });
+            $.get(url1, { access_token: accessToken }, function (data, status) {
+                callback(data, status, humidityGauge);
+            });
+            $.get(url2, { access_token: accessToken }, function (data, status) {
+                callback(data, status, fahrenheitGauge);
+            });
+        }
 
-getReading();
-</script>
+        var temperatureGauge = new JustGage({
+            id: "temperature-gauge",
+            value: 0,
+            min: 0,
+            max: 100,
+            title: "Temperatura (C)"
+        });
 
+        var humidityGauge = new JustGage({
+            id: "humidity-gauge",
+            value: 0,
+            min: 0,
+            max: 100,
+            title: "Humedad (%)"
+        });
+
+        var fahrenheitGauge = new JustGage({
+            id: "fahrenheit-gauge",
+            value: 0,
+            min: 0,
+            max: 212,
+            title: "Grados (F)"
+        });
+
+        getReading();
+        setInterval(getReading, 5000); // Actualiza los valores cada 5 segundos
+    </script>
 </body>
+
 </html>
