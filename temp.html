@@ -7,7 +7,7 @@
 <script>
 var accessToken = "002b8323b4c0f8bc74cb673c580d60e91bcde675";
 var deviceID = "3b001b001547313036303933"
-var url = "https://api.particle.io/v1/devices/" + deviceID + "/gradosC";
+var url = "https://api.particle.io/v1/devices/" + deviceID + "/gradosC" + "/humedad"+ "/gradosF";
 function callback(data, status){
 	if (status == "success") {
 		temp = parseFloat(data.result);
@@ -36,7 +36,19 @@ var g = new JustGage({
     max: 400,
     title: "Temperatura (C)"});
 
-	
+var h = new JustGage({
+    id: "gauge",
+    value: 0,
+    min: 0,
+    max: 400,
+    title: "Humedad (%)"});
+
+var i= new JustGage({
+    id: "gauge",
+    value: 0,
+    min: 0,
+    max: 400,
+    title: "Grados (F)"});
 
 getReading();
 </script>
