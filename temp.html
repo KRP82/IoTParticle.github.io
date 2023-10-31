@@ -16,7 +16,29 @@ function callback(data, status){
 		temp = parseFloat(data.result);
 		temp = temp.toFixed(2);
 		g.refresh(temp);
+		setTimeout(getReading, 1000);
+	}
+	else {
+		alert("There was a problem");
+	}
+}
+
+function callback1(data, status){
+	if (status == "success") {
+		temp = parseFloat(data.result);
+		temp = temp.toFixed(2);
 		h.refresh(temp);
+		setTimeout(getReading, 1000);
+	}
+	else {
+		alert("There was a problem");
+	}
+}
+
+function callback3(data, status){
+	if (status == "success") {
+		temp = parseFloat(data.result);
+		temp = temp.toFixed(2);
 		i.refresh(temp);
 		setTimeout(getReading, 1000);
 	}
@@ -26,8 +48,8 @@ function callback(data, status){
 }
 function getReading(){
    	$.get(url, {access_token: accessToken}, callback);
-	$.get(url1, {access_token: accessToken}, callback);
-	$.get(url2, {access_token: accessToken}, callback);
+	$.get(url1, {access_token: accessToken}, callback1);
+	$.get(url2, {access_token: accessToken}, callback3);
 }
 </script>
 </head>	
