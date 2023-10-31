@@ -29,28 +29,28 @@ function getReading(){
 <div id="gauge" class="200x160px"></div>
 
 <script>
-var g = new JustGage({
+var i = new JustGage({
     id: "gauge",
     value: 0,
     min: 0,
     max: 400,
-    title: "Temperatura (C)"
+    title: "Temperatura (C)"});
 
 var h = new JustGage({
     id: "gauge",
     value: 0,
     min: 0,
     max: 400,
-    title: "Humedad (%)"
+    title: "Humedad (%)"});
 
-var i = new JustGage({
+var g = new JustGage({
     id: "gauge",
     value: 0,
     min: 0,
     max: 400,
-    title: "Grados (F)"
+    title: "Grados (F)"});
 	
-});
+
 getReading();
 </script>
 
