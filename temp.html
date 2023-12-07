@@ -15,9 +15,9 @@
     <script>
         var accessToken = "002b8323b4c0f8bc74cb673c580d60e91bcde675";
         var deviceID = "3b001b001547313036303933";
-        var url = "https://api.particle.io/v1/devices/" + deviceID + "/gradosC";
-        var url1 = "https://api.particle.io/v1/devices/" + deviceID + "/humedad";
-        var url2 = "https://api.particle.io/v1/devices/" + deviceID + "/gradosF";
+        var url = "https://api.particle.io/v1/devices/" + deviceID + "/datos";
+        var url1 = "https://api.particle.io/v1/devices/" + deviceID + "/calibracion";
+        //var url2 = "https://api.particle.io/v1/devices/" + deviceID + "/gradosF";
 
         function callback(data, status, gauge) {
             if (status == "success") {
